@@ -1,27 +1,40 @@
-import { KeyboardAvoidingView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const LandingScreen = () => {
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     // Simulate a delay and then stop the loading animation
     setTimeout(() => {
       setLoading(false);
+      navigation.navigate('Welcome');
     }, 3000); // Adjust the delay duration as needed
-  }, []);
+  }, [navigation]);
+
+  const LoadingDots = () => {
+    const dotCount = loading ? (Math.floor(Date.now() / 700) % 4) + 1 : 0;
+    return (
+      <Text style={styles.loadingDots}>{'.'.repeat(dotCount)}</Text>
+    );
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.inputContainer}>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
         {loading ? (
           <ActivityIndicator size="large" color="#A389E8" />
         ) : (
-          <Text style={styles.text}>Fun Chat</Text>
+          <Image style={styles.image} source={require('../assets/mylogo1.png')} />
         )}
       </View>
-    </KeyboardAvoidingView>
-    
+      <View style={styles.loadingContainer}>
+        <Text style={styles.text}>Loading</Text>
+        <LoadingDots />
+      </View>
+    </View>
   );
 }
 
@@ -30,24 +43,31 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#A389E8',
   },
-  inputContainer: {
+  imageContainer: {
     width: 200,
     height: 200,
-    backgroundColor: '#A389E8',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 600 / 2,
+  },
+  image: {
+    width: 150,
+    height: 150,
+  },
+  loadingContainer: {
+    alignItems: 'center',
   },
   text: {
-    fontSize: 34,
-    color: '#fff',
-    fontStyle: 'italic',
-    textAlign: 'center',
+    fontSize: 15,
+  },
+  loadingDots: {
+    fontSize: 54,
   },
 });
 
 export default LandingScreen;
+
+
 
 

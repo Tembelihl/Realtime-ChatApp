@@ -1,25 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import Landing from "../assets/landing.jpg";
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import Landing from '../assets/landing.jpg'; 
+import { useNavigation } from '@react-navigation/native';
+
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Fun Chat</Text>
-        <Image style={styles.landing} source={Landing} />
-      </View>
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.description}>Enjoy a new experience chatting with global friends!</Text>
-      </View>
-      <View style={styles.customTextContainer}>
-        <Text style={styles.customText}>
-          Welcome to Fun Chat!!! the ultimate messaging platform that brings you close to your family. 
-          Chat, share, and stay in touch effortlessly
-        </Text>
-      </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => ('Button pressed!')}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Fun Chat</Text>
+          <Image style={styles.landing} source={Landing} />
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.description}>Enjoy the new experience chatting with global friends!</Text>
+        </View>
+        <View style={styles.customTextContainer}>
+          <Text style={styles.customText}>
+            Welcome to Fun Chat, the ultimate messaging platform that brings you close to your family.
+            Chat, share, and stay in touch effortlessly!!!
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -27,26 +38,27 @@ const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#A389E8',
   },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   titleContainer: {
-    marginBottom: 90,
-    top: 60
+    marginBottom: 20,
   },
   title: {
     fontSize: 60,
     color: '#000',
     fontStyle: 'italic',
     fontWeight: 'bold',
+    bottom: 20
   },
   landing: {
-    width: 277,
-    height: 215,
-    marginBottom: 50,
+    width: 270,
+    height: 180,
     borderRadius: 50,
-    top:30
   },
   descriptionContainer: {
     marginBottom: 10,
@@ -58,7 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   customTextContainer: {
-    marginBottom: 100,
+    marginBottom: 80,
   },
   customText: {
     fontSize: 12,
@@ -66,7 +78,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    marginBottom: 30,
+    marginBottom: 50,
+    alignItems: 'center',
+  },
+  button: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 50,
     paddingVertical: 10,
@@ -76,10 +91,12 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
 export default WelcomeScreen;
+
 
 
 

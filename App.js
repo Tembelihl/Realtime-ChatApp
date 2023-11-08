@@ -14,21 +14,21 @@ export default function App() {
     
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Landing">
-        {/* <Stack.Screen
+        <Stack.Screen
           options={{ headerShown: false }}
           name="Landing"
           component={LandingScreen} // Use the LandingScreen component
-        /> */}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="Welcome"
           component={WelcomeScreen} // Use the WelcomeScreen component
         />
-         {/* <Stack.Screen
+         <Stack.Screen
           options={{ headerShown: false }}
           name="SignUp"
           component={SignupScreen} // Use the WelcomeScreen component
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
