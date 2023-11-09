@@ -7,11 +7,10 @@ const LandingScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Simulate a delay and then stop the loading animation
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('Welcome');
-    }, 3000); // Adjust the delay duration as needed
+    }, 3000); 
   }, [navigation]);
 
   const LoadingDots = () => {
