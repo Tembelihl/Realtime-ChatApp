@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,6 +16,7 @@ const SignupScreen = () => {
   };
 
   return ( 
+ 
     <View style={styles.container}>
       <View style={styles.upperPart}>
       <TouchableOpacity style={styles.backArrow} onPress={goBack}>
@@ -69,6 +70,8 @@ const SignupScreen = () => {
             <Image source={require("../assets/facebook-icon.png")} style={styles.iconImage} />
           </TouchableOpacity>
         </View>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        </KeyboardAvoidingView>
           <Text style={styles.text6}>Existing User?</Text>
           <TouchableOpacity
             style={styles.text7}
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
   text7: {
     fontSize: 12,
     fontWeight: "bold",
-    color: "#000",
+    color: '#A389E8',
     top: 5,
     left: 18,
   },

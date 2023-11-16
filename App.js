@@ -6,6 +6,7 @@ import LandingScreen from './screens/LandingScreen';
 import WelcomeScreen from './screens/WelcomeScreen'; 
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import MessageScreen from './screens/MessageScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +35,12 @@ export default function App() {
           name="Login"
           component={LoginScreen}
         />
-      </Stack.Navigator>
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="Message"
+          component={MessageScreen}
+        />
+      </Stack.Navigator>  
     </NavigationContainer>
   );
 }

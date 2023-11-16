@@ -25,6 +25,7 @@ const WelcomeScreen = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
+            
             onPress={() => navigation.navigate('SignUp')}
           >
             <Text style={styles.buttonText}>Get Started</Text>

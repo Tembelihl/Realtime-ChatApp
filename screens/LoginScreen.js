@@ -51,7 +51,7 @@ const LoginScreen = () => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => navigation.navigate('Message')}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   text8: {
     fontSize: 12,
     fontWeight: 'bold',
-    color:  "#A389E8",
+    color: '#A389E8',
     top: 10,
     left: 18
   },
