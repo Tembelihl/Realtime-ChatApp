@@ -70,8 +70,8 @@ const SignupScreen = () => {
             <Image source={require("../assets/facebook-icon.png")} style={styles.iconImage} />
           </TouchableOpacity>
         </View>
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        </KeyboardAvoidingView>
+        {/* <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        </KeyboardAvoidingView> */}
           <Text style={styles.text6}>Existing User?</Text>
           <TouchableOpacity
             style={styles.text7}

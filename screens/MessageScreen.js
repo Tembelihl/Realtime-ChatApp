@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const Messages = [
   {
@@ -13,7 +15,7 @@ const Messages = [
   {
     id: '2',
     userName: 'Lwazi',
-    userImg: require('../assets/users/img2.jpg'),
+    userImg: require('../assets/Users/img2.jpg'),
     messageTime: '2 hours ago',
     messageText:
       'Hey there',
@@ -21,7 +23,7 @@ const Messages = [
   {
     id: '3',
     userName: 'Sipho',
-    userImg: require('../assets/users/img3.jpg'),
+    userImg: require('../assets/Users/img3.jpg'),
     messageTime: '1 hours ago',
     messageText:
       'Hey there',
@@ -29,7 +31,7 @@ const Messages = [
   {
     id: '4',
     userName: 'Wendy',
-    userImg: require('../assets/users/img4.jpg'),
+    userImg: require('../assets/Users/img4.jpg'),
     messageTime: '1 day ago',
     messageText:
       'Hey there',
@@ -37,7 +39,7 @@ const Messages = [
   {
     id: '5',
     userName: 'Sinazo',
-    userImg: require('../assets/users/img5.jpg'),
+    userImg: require('../assets/Users/img5.jpg'),
     messageTime: '2 days ago',
     messageText:
       'Hey there.',
@@ -47,6 +49,9 @@ const Messages = [
 const MessageScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Messages</Text>
+      </View>
       <FlatList
         data={Messages}
         keyExtractor={(item) => item.id}
@@ -70,6 +75,20 @@ const MessageScreen = ({ navigation }) => {
           </TouchableOpacity>
         )}
       />
+        <View style={styles.bottomContainer}>
+        <View style={styles.bottomItem}>
+          <Icon name="home-outline" size={30} color="#000000" />
+          <Text style={styles.bottomText}>Home</Text>
+        </View>
+        <View style={styles.bottomItem}>
+          <Icon name="chatbox-outline" size={30} color="#000000" />
+          <Text style={styles.bottomText}>Messages</Text>
+        </View>
+        <View style={styles.bottomItem}>
+          <Icon name="person-outline" size={30} color="#000000" />
+          <Text style={styles.bottomText}>Profile</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -80,6 +99,18 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#ffffff',
   },
+  headerContainer: { 
+    padding: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    top: 10
+  },
+  headerText: {
+    fontSize: 16,
+    color: '#000000',
+    fontWeight: 'bold',
+  },
   card: {
     width: '100%',
     marginBottom: 10,
@@ -87,6 +118,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 10,
     padding: 10,
+    top: 20
   },
   userInfo: {
     flexDirection: 'row',
@@ -121,6 +153,21 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 14,
     color: '#333333',
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    paddingVertical: 5,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  bottomItem: {
+    alignItems: 'center',
+  },
+  bottomText: {
+    fontSize: 10,
   },
 });
 
