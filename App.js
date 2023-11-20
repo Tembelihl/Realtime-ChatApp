@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import MessageScreen from './screens/MessageScreen';
 import ChatScreen from './screens/ChatScreen';
+import GroupScreen from './screens/GroupScreen'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,6 +47,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="Chat"
           component={ChatScreen}
+        />
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="Group"
+          component={GroupScreen}
         />
       </Stack.Navigator>  
     </NavigationContainer>

@@ -2,7 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const ChatScreen = () => {
   const navigation = useNavigation();
@@ -10,11 +12,25 @@ const ChatScreen = () => {
   const { userName } = route.params;
   const [messages, setMessages] = useState([]);
 
+  const handlePress = () => {
+    navigation.navigate('Group');
+  }
+
   useEffect(() => {
     setMessages([
       {
+        _id: 2,
+        text: 'Hello World',
+        createdAt: new Date(),
+        user: {
+          _id: 1,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+      {
         _id: 1,
-        text: 'Hello developer',
+        text: 'Hello Developer',
         createdAt: new Date(),
         user: {
           _id: 2,
@@ -31,6 +47,45 @@ const ChatScreen = () => {
     );
   }, []);
 
+  const renderSend = (props) => {
+    return(
+        <Send {...props}>
+        <View>
+          <MaterialCommunityIcons
+           name='send-circle'
+           style={{marginBottom: 5, marginRight: 5}}
+        size={32} 
+        color='#A389E8' />
+        </View>
+      </Send>
+      
+    )
+  }
+
+  const renderBubble = (props) => {
+    return(
+    <Bubble
+    {...props} 
+    wrapperStyle={{
+        right: {
+            backgroundColor: "#A389E8" 
+        }
+    }}
+    textStyle={{
+        right: {
+            color: '#fff'
+        }
+    }}
+    />
+    );
+  }
+
+  const scrollToBottomComponent = () => {
+    return (
+      <FontAwesome name='angle-double-down' size={22} color='#333' />
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,7 +93,7 @@ const ChatScreen = () => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Icon name="arrow-back" size={24} color="#007BFF" />
+          <Icon name="arrow-back" size={24} color="#000000" />
         </TouchableOpacity>
         {/* Empty View to center align */}
         <View style={styles.centerView}></View>
@@ -52,21 +107,16 @@ const ChatScreen = () => {
         user={{
           _id: 1,
         }}
+        renderBubble={renderBubble}
+        alwaysShowSend
+        renderSend={renderSend}
+        scrollToBottom
+        scrollToBottomComponent={scrollToBottomComponent}
       />
-      <View style={styles.bottomContainer}>
-        <View style={styles.bottomItem}>
-          <Icon name="home-outline" size={30} color="#000000" />
-          <Text style={styles.bottomText}>Home</Text>
-        </View>
-        <View style={styles.bottomItem}>
-          <Icon name="chatbox-outline" size={30} color="#000000" />
-          <Text style={styles.bottomText}>Messages</Text>
-        </View>
-        <View style={styles.bottomItem}>
-          <Icon name="person-outline" size={30} color="#000000" />
-          <Text style={styles.bottomText}>Profile</Text>
-        </View>
-      </View>
+      {/* Group icon at the top right */}
+      <TouchableOpacity style={styles.groupIcon} onPress={handlePress}>
+        <MaterialCommunityIcons name='account-group' size={30} color='#000000' />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -92,25 +142,14 @@ const styles = StyleSheet.create({
   centerView: {
     flex: 1,
   },
-  bottomContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-    paddingVertical: 5,
-    borderTopWidth: 1,
-    borderTopColor: '#ccc',
-  },
-  bottomItem: {
-    alignItems: 'center',
-  },
-  bottomText: {
-    fontSize: 10,
+  groupIcon: {
+    position: 'absolute',
+    top: 0,
+    right: 16,
+    backgroundColor: '#f2f2f2',
+    padding: 10,
+    borderRadius: 30,
   },
 });
 
 export default ChatScreen;
-
-
-
-
