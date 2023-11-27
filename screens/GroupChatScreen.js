@@ -1,27 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Avatar } from 'react-native-elements';
 
-const ChatScreen = () => {
+const GroupChatScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { userName } = route.params;
   const [messages, setMessages] = useState([]);
-  const [isOnline, setIsOnline] = useState(false); // New state for online status
+  const [isOnline, setIsOnline] = useState(false);
 
   const handlePress = () => {
     navigation.navigate('Group');
-  }
+  };
 
   useEffect(() => {
     setMessages([
       {
-        _id: 2,
+        _id: 1,
         text: 'Hello World',
         createdAt: new Date(),
         user: {
@@ -31,21 +30,20 @@ const ChatScreen = () => {
         },
       },
       {
-        _id: 1,
+        _id: 2,
         text: 'Hello Developer',
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'React Native',
+          name: 'Another Developer',
           avatar: 'https://placeimg.com/140/140/any',
         },
       },
     ]);
 
-    // Simulating online status changes
     const onlineStatusInterval = setInterval(() => {
       setIsOnline((prevStatus) => !prevStatus);
-    }, 5000); // Change online status every 5 seconds
+    }, 5000);
 
     return () => clearInterval(onlineStatusInterval);
   }, []);
@@ -69,7 +67,7 @@ const ChatScreen = () => {
         </View>
       </Send>
     );
-  }
+  };
 
   const renderBubble = (props) => {
     return (
@@ -87,14 +85,13 @@ const ChatScreen = () => {
         }}
       />
     );
-  }
+  };
 
   const scrollToBottomComponent = () => {
     return (
       <FontAwesome name='angle-double-down' size={22} color='#333' />
     );
-  }
-
+  };
 
   return (
     <View style={styles.container}>
@@ -130,7 +127,6 @@ const ChatScreen = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -169,4 +165,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatScreen;
+export default GroupChatScreen;

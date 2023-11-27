@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
+
 const Messages = [
   {
     id: '1',
@@ -56,7 +57,7 @@ const MessageScreen = ({ navigation }) => {
         data={Messages}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity
+           <TouchableOpacity
             style={styles.card}
             onPress={() => navigation.navigate('Chat', { userName: item.userName })}
           >
@@ -67,7 +68,13 @@ const MessageScreen = ({ navigation }) => {
               <View style={styles.textSection}>
                 <View style={styles.userInfoText}>
                   <Text style={styles.userName}>{item.userName}</Text>
+                  <View style={styles.statusContainer}>
                   <Text style={styles.postTime}>{item.messageTime}</Text>
+                    <Text style={[styles.postTime, { color: item.online ? 'green' : 'gray' }]}>
+                      {item.online ? 'Online' : 'Offline'}
+                    </Text>
+             
+                  </View>
                 </View>
                 <Text style={styles.messageText}>{item.messageText}</Text>
               </View>
@@ -99,16 +106,15 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#ffffff',
   },
-  headerContainer: { 
-    padding: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
-    top: 10
+  headerContainer: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    backgroundColor: '#fff',
+    alignItems: 'center'
   },
   headerText: {
-    fontSize: 16,
-    color: '#000000',
+    fontSize: 20,
     fontWeight: 'bold',
   },
   card: {

@@ -2,21 +2,50 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { FirebaseConfig, firebaseAuth } from "../Config/Firebase.config";
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const goBack = () => {
     navigation.goBack();
   };
 
-  return ( 
- 
+  const handleSignup = async () => {
+    try {
+      const auth = getAuth();
+      await createUserWithEmailAndPassword(firebaseAuth, email, password);
+
+       // User created successfully, now add user data to Firestore
+    const db = getFirestore();
+    const usersCollection = collection(db, 'users'); // Replace 'users' with the name of your Firestore collection
+
+      // Add user data to Firestore
+      await addDoc(usersCollection, {
+        fullName,
+        email,
+        password
+        // Add other user data as needed
+      });
+      console.log("User created successfully!");
+      // You can add additional code here to handle successful signup
+    } catch (error) {
+      console.log("Error creating user:", error);
+      // You can add additional code here to handle signup errors
+    }
+  };
+
+  return (
     <View style={styles.container}>
       <View style={styles.upperPart}>
       <TouchableOpacity style={styles.backArrow} onPress={goBack}>
@@ -28,13 +57,24 @@ const SignupScreen = () => {
         <Text style={styles.text3}>chatting with global friends!</Text>
       </View>
       <View style={styles.lowerPart}>
+        {/* Rest of your code */}
         <View style={styles.inputContainer}>
           <Icon name="user" size={20} style={styles.icon} />
-          <TextInput style={styles.input} placeholder="Enter FullName" />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Full Name"
+            value={fullName}
+            onChangeText={setFullName}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Icon name="envelope" size={20} style={styles.icon} />
-          <TextInput style={styles.input} placeholder="Enter Email" />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
         <View style={styles.inputContainer}>
           <Icon name="lock" size={20} style={styles.icon} />
@@ -54,12 +94,10 @@ const SignupScreen = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Login")}
-          >
+          <TouchableOpacity style={styles.button} onPress={handleSignup}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
+
           <Text style={styles.text4}>Or</Text>
           <Text style={styles.text5}>Signup with</Text>
           <View style={styles.socialIconsContainer}>
@@ -70,8 +108,6 @@ const SignupScreen = () => {
             <Image source={require("../assets/facebook-icon.png")} style={styles.iconImage} />
           </TouchableOpacity>
         </View>
-        {/* <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        </KeyboardAvoidingView> */}
           <Text style={styles.text6}>Existing User?</Text>
           <TouchableOpacity
             style={styles.text7}
@@ -81,6 +117,7 @@ const SignupScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
+
     </View>
   );
 };
