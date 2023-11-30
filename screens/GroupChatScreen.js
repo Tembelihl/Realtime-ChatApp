@@ -5,22 +5,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Avatar } from 'react-native-elements';
 
 const GroupChatScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { userName } = route.params;
+  const { groupName } = route.params;
   const [messages, setMessages] = useState([]);
-  const [isOnline, setIsOnline] = useState(false);
 
   const handlePress = () => {
-    navigation.navigate('Group');
-  };
+    // Update this to navigate to the appropriate group screen
+    navigation.navigate('GroupDetails');
+  }
 
   useEffect(() => {
     setMessages([
       {
-        _id: 1,
+        _id: 2,
         text: 'Hello World',
         createdAt: new Date(),
         user: {
@@ -30,22 +31,16 @@ const GroupChatScreen = () => {
         },
       },
       {
-        _id: 2,
+        _id: 1,
         text: 'Hello Developer',
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'Another Developer',
+          name: 'React Native',
           avatar: 'https://placeimg.com/140/140/any',
         },
       },
     ]);
-
-    const onlineStatusInterval = setInterval(() => {
-      setIsOnline((prevStatus) => !prevStatus);
-    }, 5000);
-
-    return () => clearInterval(onlineStatusInterval);
   }, []);
 
   const onSend = useCallback((newMessages = []) => {
@@ -67,7 +62,7 @@ const GroupChatScreen = () => {
         </View>
       </Send>
     );
-  };
+  }
 
   const renderBubble = (props) => {
     return (
@@ -85,13 +80,13 @@ const GroupChatScreen = () => {
         }}
       />
     );
-  };
+  }
 
   const scrollToBottomComponent = () => {
     return (
       <FontAwesome name='angle-double-down' size={22} color='#333' />
     );
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -103,10 +98,7 @@ const GroupChatScreen = () => {
           <Icon name="arrow-back" size={24} color="#000000" />
         </TouchableOpacity>
         <View style={styles.centerView}></View>
-        <Text style={styles.userName}>{userName}</Text>
-        <Text style={[styles.onlineStatus, { color: isOnline ? 'green' : 'gray' }]}>
-          {isOnline ? 'Online' : 'Offline'}
-        </Text>
+        <Text style={styles.groupName}>{groupName}</Text>
         <View style={styles.centerView}></View>
       </View>
       <GiftedChat
@@ -128,6 +120,7 @@ const GroupChatScreen = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -142,7 +135,7 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 5,
   },
-  userName: {
+  groupName: {
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -156,12 +149,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     padding: 10,
     borderRadius: 30,
-  },
-  onlineStatus: {
-    fontSize: 12,
-    top: 20,
-    right: 45,
-    color: '#777',
   },
 });
 
